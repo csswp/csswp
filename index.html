@@ -44,14 +44,22 @@
 
 
         
-<button class="navigators" onclick="showTab(1);swapTitle('CSSWP Home')">Home</button>
+<button class="navigators" onclick="showTab(1);swapTitle('CSSWP Home')">Home</button> 
+
+
+       
         <br>
 <button class="navigators" onclick="showTab(2);swapTitle('CSSWP Tools')">Tools</button> 
         <br>
         <button class="navigators" onclick="showTab(3);swapTitle('YT Links')">Youtube</button>
+
+
+         <br>
+        <button class="navigators" onclick="showTab(4);swapTitle('Daily Video')">MV</button>
+         <img src="#" onerror="showTab(1)">
         <div id="tab1" class="tab-content">
 <h class="largetext" >CSSWP Homepage</h>
-            <img src="" onerror="showTab(1)">
+            <img src="#" onerror="showTab(1)">
 
             <br>
             <a href = "https://docs.google.com/presentation/d/1zyZ6aftiKZqmcPcFv0eVsJcycQqcciW_BiJttIoXbXg/edit?usp=sharing" class="mediumlargetext" target = "_blank" >Drafts and Discussions</a>
@@ -63,13 +71,20 @@
 
     <h class="largetext" >Youtube</h> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_play_button_icon_%282013%E2%80%932017%29.svg/1200px-YouTube_play_button_icon_%282013%E2%80%932017%29.svg.png" width ="120" height="80">
 <br>
-    <a class="links" href ="https://www.youtube.com/@MaxVelocityWX/videos" target = "_blank" >Max Velocity</a>
+    <a class="links" href ="https://www.youtube.com/@MaxVelocityWX/videos" target = "_blank" >Max Velocity</a>  
     <br>
     <a class="links" href ="https://www.youtube.com/@RyanHallYallXTRA/videos" target = "_blank" >Ryan Hall Y'all</a>
        <br>
     <a class="links" href ="https://www.youtube.com/@POWPonderonweather/videos" target = "_blank" >POW Ponder on Weather</a>
     
     </div>
+
+        <div id="tab4" class="tab-content" style="display:none;">
+            <h class="largetext">Daily Max Velocity Update</h>
+
+   <iframe id="videoFrame" width="300" height="200" frameborder="0" allowfullscreen></iframe>
+            
+            </div>
 
 
         
@@ -124,6 +139,39 @@
         function swapTitle(name){
             document.title = name
             }
+
+
+        // Define your API key and the channel ID of the YouTuber
+        var apiKey = 'AIzaSyCUwaqzyQm20m9NnWJMSVGcy8dIcEu3vFw';
+        var channelId = 'UCvBVK2ymNzPLRJrgip2GeQQ';
+
+        // Construct the API request URL
+        var apiUrl = 'https://www.googleapis.com/youtube/v3/search?key=' + apiKey + '&channelId=' + channelId + '&part=snippet,id&order=date&maxResults=1';
+
+        // Make API request
+        fetch(apiUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Check if response contains items
+            if (data.items && data.items.length > 0) {
+              // Extract URL of the latest video
+              var latestVideoId = data.items[0].id.videoId;
+              var latestVideoUrl = 'https://www.youtube.com/embed/' + latestVideoId;
+
+              // Set the src attribute of the iframe
+              document.getElementById('videoFrame').src = latestVideoUrl;
+            } else {
+              console.error('No videos found for the specified channel.');
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching latest video:', error);
+          });
     </script>    
     </body>
     
