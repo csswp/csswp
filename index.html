@@ -34,6 +34,10 @@
         .navigators:hover{
             background-color:grey;
             }
+
+.mediumlargetext{
+    font-size:40px; }
+            
         </style>
     </head>
     <body>
@@ -43,14 +47,32 @@
 <button class="navigators" onclick="showTab(1);swapTitle('CSSWP Home')">Home</button>
         <br>
 <button class="navigators" onclick="showTab(2);swapTitle('CSSWP Tools')">Tools</button> 
+        <br>
+        <button class="navigators" onclick="showTab(3);swapTitle('YT Links')">Youtube</button>
         <div id="tab1" class="tab-content">
 <h class="largetext" >CSSWP Homepage</h>
             <img src="" onerror="showTab(1)">
 
             <br>
-            <a href = "https://docs.google.com/presentation/d/1zyZ6aftiKZqmcPcFv0eVsJcycQqcciW_BiJttIoXbXg/edit?usp=sharing" class="largetext" target = "_blank" >Drafts and Discussions</a>
+            <a href = "https://docs.google.com/presentation/d/1zyZ6aftiKZqmcPcFv0eVsJcycQqcciW_BiJttIoXbXg/edit?usp=sharing" class="mediumlargetext" target = "_blank" >Drafts and Discussions</a>
+            <br>
+            <a class="mediumlargetext" target="_blank" href="https://discord.gg/4M4Z33KN">Discord</a> <img width="30" height="30" src="https://static.vecteezy.com/system/resources/previews/006/892/625/original/discord-logo-icon-editorial-free-vector.jpg">
            
 </div>
+<div id="tab3" class="tab-content" style="display: none;">
+
+    <h class="largetext" >Youtube</h> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_play_button_icon_%282013%E2%80%932017%29.svg/1200px-YouTube_play_button_icon_%282013%E2%80%932017%29.svg.png" width ="120" height="80">
+<br>
+    <a class="links" href ="https://www.youtube.com/@MaxVelocityWX/videos" target = "_blank" >Max Velocity</a>
+    <br>
+    <a class="links" href ="https://www.youtube.com/@RyanHallYallXTRA/videos" target = "_blank" >Ryan Hall Y'all</a>
+       <br>
+    <a class="links" href ="https://www.youtube.com/@POWPonderonweather/videos" target = "_blank" >POW Ponder on Weather</a>
+    
+    </div>
+
+
+        
 
 <div id="tab2" class="tab-content" style="display: none;">
   <h class="largetext">Forecasting Tools</h>
