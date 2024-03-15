@@ -1,6 +1,6 @@
 <html>
 <head>
-        <title>CSSWP</title>
+        <title>CSSWP Home</title>
     <link rel="icon" href="https://lh3.googleusercontent.com/a/ACg8ocLfEDTxcyVyVCb0r_s_ymkpgfAi99KFImHqSk-8V8Al-Q=s288-c-no" type="image/x-icon">
         <style>
             .tab-content {
@@ -59,7 +59,7 @@
          
         <div id="tab1" class="tab-content">
 <h class="largetext" >CSSWP Homepage</h>
-            <img src="#" onerror="showTab(1)">
+          
 
             <br>
             <a href = "https://docs.google.com/presentation/d/1zyZ6aftiKZqmcPcFv0eVsJcycQqcciW_BiJttIoXbXg/edit?usp=sharing" class="mediumlargetext" target = "_blank" >Drafts and Discussions</a>
@@ -172,6 +172,14 @@
           .catch(error => {
             console.error('Error fetching latest video:', error);
           });
+
+document.addEventListenser("DOMContent-Loaded", function(){
+
+        showTab(1)
+}
+
+
+            
     </script>    
     </body>
     
