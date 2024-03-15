@@ -56,6 +56,8 @@
 
          <br>
         <button class="navigators" onclick="showTab(4);swapTitle('Daily Video')">MV</button>
+        <br>
+        <button class="navigators" onclick="showTab(5);swapTitle('Alerts')">Alerts</button>
          
         <div id="tab1" class="tab-content">
 <h class="largetext" >CSSWP Homepage</h>
@@ -69,6 +71,18 @@
             <a class="mediumlargetext" target="_blank" href="https://discord.gg/4M4Z33KN">Discord</a> <img width="30" height="30" src="https://static.vecteezy.com/system/resources/previews/006/892/625/original/discord-logo-icon-editorial-free-vector.jpg">
            
 </div>
+
+<div id="tab5" class="tab-content" style="display: none;">
+
+
+  <ul id="alerts-list"></ul>
+
+
+</div>
+
+
+
+
 <div id="tab3" class="tab-content" style="display: none;">
 
     <h class="largetext" >Youtube</h> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_play_button_icon_%282013%E2%80%932017%29.svg/1200px-YouTube_play_button_icon_%282013%E2%80%932017%29.svg.png" width ="120" height="80">
@@ -125,6 +139,47 @@
 
         
     <script>
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    fetchWeatherAlerts();
+});
+
+function fetchWeatherAlerts() {
+    const apiUrl = 'https://api.weather.gov/alerts/active?point=41.9125,-88.1348';
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            displayWeatherAlerts(data);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+function displayWeatherAlerts(alertsData) {
+    const alertsList = document.getElementById('alerts-list');
+    if(alertsData.features.length === 0) {
+        alertsList.innerHTML = '<li>No weather alerts currently.</li>';
+        return;
+    }
+    alertsData.features.forEach(alert => {
+        const listItem = document.createElement('li');
+        const alertProperties = alert.properties;
+        listItem.innerHTML = `
+            <strong>${alertProperties.event}</strong>: ${alertProperties.description}<br>
+            <strong>Severity:</strong> ${alertProperties.severity}<br>
+            <strong>Urgency:</strong> ${alertProperties.urgency}<br>
+            <strong>Effective:</strong> ${new Date(alertProperties.effectiveTime).toLocaleString()}<br>
+            <strong>Expires:</strong> ${new Date(alertProperties.expiresTime).toLocaleString()}<br>
+            <strong>Instructions:</strong> ${alertProperties.instructions}
+        `;
+        alertsList.appendChild(listItem);
+    });
+}
 
         function showTab(tabNumber) {
   // Hide all tab contents
