@@ -101,9 +101,9 @@ height: 150px;
 
 
 <div id="tab7" class="tab-content">
-    <h1 class="largetext">ECMWF</h1>
+    <h1 class="largetext">Radar</h1>
     <br>
-    <img width="600" height="300" src="blob:https://www.pivotalweather.com/be33d8c6-ce48-4443-a282-cf7292cd50ab"> 
+  <img id="radarImage" src="">
 </div>
 
 
@@ -279,7 +279,21 @@ function displayWeatherAlerts(alertsData) {
           .catch(error => {
             console.error('Error fetching latest video:', error);
           });
+        // Fetch radar imagery data from api.weather.gov
+        fetch('https://api.weather.gov/points/41.9125,88.1348')
+            .then(response => response.json())
+            .then(data => {
+                // Extract the radar URL from the properties
+                const radarUrl = data.properties.radar;
 
+                // Fetch radar image URL
+                return fetch(radarUrl);
+            })
+            .then(response => {
+                // Update the src attribute of the img element with radar image URL
+                document.getElementById('radarImage').src = response.url;
+            })
+            .catch(error => console.error('Error fetching radar data:', error));
 
 
             
