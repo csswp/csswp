@@ -103,7 +103,7 @@ height: 150px;
 <div id="tab7" class="tab-content">
     <h1 class="largetext">Radar</h1>
     <br>
-  <img id="radarImage" src="" alt="Radar">
+  <img  src="https://www.weatherapi.com/maps/radar/now/zoom/7/mapcenter/41.9126,-88.1348/key=5a93ae5a66ff83aea9928a9afacb89e1%22" alt="Radar">
 </div>
 
 
@@ -190,14 +190,8 @@ height: 150px;
         
     <script>
 
-        // Fetch radar imagery data from OpenWeatherMap API
-        fetch('https://tile.openweathermap.org/map/precipitation_new/10/41.9142/-88.1021.png?appid=5a93ae5a66ff83aea9928a9afacb89e1')
-            .then(response => {
-                // Update the src attribute of the img element with radar image URL
-                document.getElementById('radarImage').src = response.url;
-            })
-            .catch(error => console.error('Error fetching radar data:', error));
-
+        
+        
 
 
 document.addEventListener("DOMContentLoaded", function() {
