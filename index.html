@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,8 +37,8 @@
                             document.getElementById('forecast').textContent = 'Error fetching Day 1 outlook';
                         });
                 } else {
-                    console.error('Day 1 outlook not found.');
-                    document.getElementById('forecast').textContent = 'Day 1 outlook not found';
+                    console.error('Day 1 outlook data not found.');
+                    document.getElementById('forecast').textContent = 'Day 1 outlook data not found';
                 }
             })
             .catch(error => {
