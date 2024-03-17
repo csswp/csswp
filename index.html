@@ -22,9 +22,12 @@
                     const outlookProducts = data['@graph'];
                     let day1Outlook = null;
                     for (const product of outlookProducts) {
-                        if (product['@type'] === 'wx:Outlook' && product['@id'].includes('day1')) {
-                            day1Outlook = product;
-                            break;
+                        console.log('Product:', product);
+                        if (product.hasOwnProperty('@type') && product.hasOwnProperty('@id')) {
+                            if (product['@type'] === 'wx:Outlook' && product['@id'].includes('day1')) {
+                                day1Outlook = product;
+                                break;
+                            }
                         }
                     }
                     console.log('Day 1 Outlook:', day1Outlook);
