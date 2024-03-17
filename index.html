@@ -20,7 +20,13 @@
                 if (typeof data === 'object' && data.hasOwnProperty('@graph')) {
                     // Find the latest Day 1 outlook product
                     const outlookProducts = data['@graph'];
-                    const day1Outlook = outlookProducts.find(product => product['@type'] === 'wx:Outlook' && product['@id'].includes('day1'));
+                    let day1Outlook = null;
+                    for (const product of outlookProducts) {
+                        if (product['@type'] === 'wx:Outlook' && product['@id'].includes('day1')) {
+                            day1Outlook = product;
+                            break;
+                        }
+                    }
                     console.log('Day 1 Outlook:', day1Outlook);
                     if (day1Outlook) {
                         // Fetch the Day 1 outlook data
