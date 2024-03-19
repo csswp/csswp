@@ -267,6 +267,7 @@ function displayWeatherAlerts(alertsData) {
             <strong>Effective:</strong> ${new Date(alertProperties.effective).toLocaleString()}<br>
             <strong>Expires:</strong> ${new Date(alertProperties.expires).toLocaleString()}<br>
             <strong>Instructions:</strong> ${alertProperties.instructions}
+            <strong>Type:</strong> ${alertProperties.event}
         `;
         alertsList.appendChild(listItem);
     });
