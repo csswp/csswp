@@ -264,8 +264,8 @@ function displayWeatherAlerts(alertsData) {
             <strong>${alertProperties.event}</strong>: ${alertProperties.description}<br>
             <strong>Severity:</strong> ${alertProperties.severity}<br>
             <strong>Urgency:</strong> ${alertProperties.urgency}<br>
-            <strong>Effective:</strong> ${new Date(alertProperties.effectiveTime).toLocaleString()}<br>
-            <strong>Expires:</strong> ${new Date(alertProperties.expiresTime).toLocaleString()}<br>
+            <strong>Effective:</strong> ${new Date(alertProperties.effective).toLocaleString()}<br>
+            <strong>Expires:</strong> ${new Date(alertProperties.expires).toLocaleString()}<br>
             <strong>Instructions:</strong> ${alertProperties.instructions}
         `;
         alertsList.appendChild(listItem);
@@ -328,5 +328,3 @@ function displayWeatherAlerts(alertsData) {
     </body>
     
 </html>
-
-
