@@ -126,8 +126,8 @@ height: 150px;
             // Find the latest wind speed value
             var values = data.properties.windSpeed.values;
             var latestWindSpeed = values[values.length - 1].value; // Wind speed in meters per second
-            var windSpeedMph = latestWindSpeed * 2.23694; // Convert meters per second to miles per hour
-            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMph + "mph";
+            var windSpeedMph = latestWindSpeed 
+            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMph + " mph";
         })
         .catch(error => {
             console.log("Error fetching wind speed data:", error);
