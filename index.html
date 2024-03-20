@@ -116,12 +116,18 @@ height: 150px;
 
         // Make a GET request to the API
         fetch(url)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
-            // Extract wind speed information from the response
-            var windSpeedMps = data.properties.windSpeed.values.value; // Wind speed in meters per second
-            
-            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMps + " mps";
+            // Find the latest wind speed value
+            var values = data.properties.windSpeed.values;
+            var latestWindSpeed = values[values.length - 1].value; // Wind speed in meters per second
+            var windSpeedMph = latestWindSpeed * 2.23694; // Convert meters per second to miles per hour
+            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMph.toFixed(2) + " mph";
         })
         .catch(error => {
             console.log("Error fetching wind speed data:", error);
