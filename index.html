@@ -71,7 +71,7 @@ height: 150px;
         <br>
 <button class="navigators" onclick="showTab(2);swapTitle('CSSWP Tools')">Tools</button> 
         <br>
-        <button class="navigators" onclick="showTab(7);swapTitle('Wind Speed')">Wind</button>
+        <button class="navigators" onclick="showTab(7);swapTitle('ECMWF-CSSWP')">ECMWF</button>
         <br>
         <button class="navigators" onclick="showTab(3);swapTitle('YT Links')">Youtube</button>
 
@@ -93,7 +93,7 @@ height: 150px;
     <img alt="weather forecast map" class="selectable-image" src="https://origin.wpc.ncep.noaa.gov/NationalForecastChart/staticmaps/noaad1.png">
     <img alt="rainfall" class="selectable-image" src="https://www.wpc.ncep.noaa.gov/qpf/fill_94qwbg.gif?1710598524265">
     <img alt="excessive rainfall outlook" class="selectable-image" src="https://www.wpc.ncep.noaa.gov/qpf/94ewbg.gif?1710599300958">
-    
+    <img class="selectable-image" src="https://m1l.pivotalweather.com/maps/models/ecmwf_full/2024031612/006/prateptype_cat_ecmwf-imp.conus.png">
     
 
 
@@ -102,49 +102,17 @@ height: 150px;
 
 
 <div id="tab7" class="tab-content">
-    <h1 class="largetext">Current Wind Speed</h1>
-    <p class="mediumlargetext" id="windSpeed"></p>
+    <h1 class="largetext">Thunderstorm outlook</h1>
+    <pre id="forecast"></pre>
     <br>
 
 </div>
-
-<script>
-    // Function to fetch wind speed data from the API
-    function getWindSpeed() {
-        // API endpoint for Carol Stream, IL
-        var url = "https://api.weather.gov/gridpoints/LOT/64,74";
-
-        // Make a GET request to the API
-        fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Find the latest wind speed value
-            var values = data.properties.windSpeed.values;
-            var latestWindSpeed = values[values.length - 1].value; // Wind speed in meters per second
-            var windSpeedMph = latestWindSpeed / 1.609344
-            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMph.toFixed(0) + " mph";
-        })
-        .catch(error => {
-            console.log("Error fetching wind speed data:", error);
-            document.getElementById('windSpeed').innerText = "Failed to fetch wind speed data";
-        });
-    }
-
-    // Call the function to fetch wind speed data when the page loads
-    window.onload = getWindSpeed;
-</script>
 
 
          
         <div id="tab1" class="tab-content">
 <h class="largetext" >CSSWP Homepage</h>
                 <br>
-                <p>Chicago Suburbs Severe Weather Prediction provides extremely accurate and up to date weather warnings for all of chicago suburbs. Our information is sourced from government agencies such as SPC, NOAA, WPC and ECMWF. </p>
                 <img style="display: none" src="#" onerror="showTab(1)">
           
 
@@ -226,7 +194,44 @@ height: 150px;
 
 
 
-            
+            // Make request to fetch latest SPC Day 1 forecast
+        fetch('https://api.weather.gov/products/types/outlook')
+            .then(response => response.json())
+            .then(data => {
+                // Check if the data is an object and has a '@graph' property
+                if (typeof data === 'object' && data.hasOwnProperty('@graph')) {
+                    // Find the latest Day 1 outlook product
+                    const outlookProducts = data['@graph'];
+                    const day1Outlook = outlookProducts.find(product => product['@type'] === 'wx:Outlook' && product['@id'].includes('day1'));
+                    if (day1Outlook) {
+                        // Fetch the Day 1 outlook data
+                        fetch(day1Outlook['@id'])
+                            .then(response => response.json())
+                            .then(day1Data => {
+                                // Extract and display the forecast
+                                const outlookData = day1Data.product.outlook;
+                                const forecastPre = document.getElementById('forecast');
+                                forecastPre.textContent = JSON.stringify(outlookData, null, 2);
+                            })
+                            .catch(error => {
+                                console.error('Error fetching Day 1 outlook:', error);
+                                document.getElementById('forecast').textContent = 'Error fetching Day 1 outlook';
+                            });
+                    } else {
+                        console.error('Day 1 outlook not found.');
+                        document.getElementById('forecast').textContent = 'Day 1 outlook not found';
+                    }
+                } else {
+                    console.error('Invalid response format:', data);
+                    document.getElementById('forecast').textContent = 'Invalid response format';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching outlook products:', error);
+                document.getElementById('forecast').textContent = 'Error fetching outlook products';
+            });
+
+        
         
 
 
@@ -259,12 +264,9 @@ function displayWeatherAlerts(alertsData) {
             <strong>${alertProperties.event}</strong>: ${alertProperties.description}<br>
             <strong>Severity:</strong> ${alertProperties.severity}<br>
             <strong>Urgency:</strong> ${alertProperties.urgency}<br>
-            <strong>Issued:</strong> ${new Date(alertProperties.effective).toLocaleString()}<br>
-            <strong>Expires:</strong> ${new Date(alertProperties.expires).toLocaleString()}<br>
-            
-            
-            
-            
+            <strong>Effective:</strong> ${new Date(alertProperties.effectiveTime).toLocaleString()}<br>
+            <strong>Expires:</strong> ${new Date(alertProperties.expiresTime).toLocaleString()}<br>
+            <strong>Instructions:</strong> ${alertProperties.instructions}
         `;
         alertsList.appendChild(listItem);
     });
