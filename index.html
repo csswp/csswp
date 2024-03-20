@@ -195,44 +195,7 @@ height: 150px;
 
 
 
-            // Make request to fetch latest SPC Day 1 forecast
-        fetch('https://api.weather.gov/products/types/outlook')
-            .then(response => response.json())
-            .then(data => {
-                // Check if the data is an object and has a '@graph' property
-                if (typeof data === 'object' && data.hasOwnProperty('@graph')) {
-                    // Find the latest Day 1 outlook product
-                    const outlookProducts = data['@graph'];
-                    const day1Outlook = outlookProducts.find(product => product['@type'] === 'wx:Outlook' && product['@id'].includes('day1'));
-                    if (day1Outlook) {
-                        // Fetch the Day 1 outlook data
-                        fetch(day1Outlook['@id'])
-                            .then(response => response.json())
-                            .then(day1Data => {
-                                // Extract and display the forecast
-                                const outlookData = day1Data.product.outlook;
-                                const forecastPre = document.getElementById('forecast');
-                                forecastPre.textContent = JSON.stringify(outlookData, null, 2);
-                            })
-                            .catch(error => {
-                                console.error('Error fetching Day 1 outlook:', error);
-                                document.getElementById('forecast').textContent = 'Error fetching Day 1 outlook';
-                            });
-                    } else {
-                        console.error('Day 1 outlook not found.');
-                        document.getElementById('forecast').textContent = 'Day 1 outlook not found';
-                    }
-                } else {
-                    console.error('Invalid response format:', data);
-                    document.getElementById('forecast').textContent = 'Invalid response format';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching outlook products:', error);
-                document.getElementById('forecast').textContent = 'Error fetching outlook products';
-            });
-
-        
+            
         
 
 
