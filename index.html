@@ -119,9 +119,9 @@ height: 150px;
         .then(response => response.json())
         .then(data => {
             // Extract wind speed information from the response
-            var windSpeedMps = data.properties.twentyFootWindDirection.value; // Wind speed in meters per second
+            var windSpeedMps = data.properties.WindSpeed.value; // Wind speed in meters per second
             
-            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMps + " mph";
+            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMps + "mps";
         })
         .catch(error => {
             console.log("Error fetching wind speed data:", error);
