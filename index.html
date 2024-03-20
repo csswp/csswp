@@ -127,7 +127,7 @@ height: 150px;
             var values = data.properties.windSpeed.values;
             var latestWindSpeed = values[values.length - 1].value; // Wind speed in meters per second
             var windSpeedMph = latestWindSpeed / 1.609344
-            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMph + " mph";
+            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMph.toFixed(0) + " mph";
         })
         .catch(error => {
             console.log("Error fetching wind speed data:", error);
