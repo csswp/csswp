@@ -115,6 +115,7 @@ height: 150px;
 <div id="tab7" class="tab-content">
     <h1 class="largetext">Current Wind Speed</h1>
     <p class="mediumlargetext" id="windSpeed"></p>
+    <p class="mediumlargetext" id="windGust"></p>
     <br>
 
 </div>
@@ -140,14 +141,14 @@ height: 150px;
             var windSpeedMph = latestWindSpeed / 1.609344
        var windgustlist = data.properties.windGust.values;
        var latestwindGust = windgustlist[windgustlist.length - 1].value;
-            document.getElementById('windSpeed').innerText = "Wind Speed: " + windSpeedMph.toFixed(0) + " mph"; 
+            document.getElementById('windSpeed').innerText = "Wind Speeds are up to " + windSpeedMph.toFixed(0) + " mph"; 
             document.getElementById('windGust').innerText = "Wind Gusts are up to " + latestwindGust + "mph";
 
            
         })
         .catch(error => {
             console.log("Error fetching wind speed data:", error);
-            document.getElementById('windSpeed').innerText = "Failed to fetch wind speed data";
+            document.getElementById('windSpeed').innerText = "Something went wrong... Try again later.";
         });
     }
 
