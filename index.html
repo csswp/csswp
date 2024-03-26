@@ -113,8 +113,9 @@ height: 150px;
 
 
 <div id="tab7" class="tab-content">
-    <h1 class="largetext">Current Wind Speed</h1>
+    <h1 class="largetext">Current Wind Speed</h1> <br>
     <p class="mediumlargetext" id="windSpeed"></p>
+    <br>
     <p class="mediumlargetext" id="windGust"></p>
     <br>
 
@@ -140,9 +141,11 @@ height: 150px;
             var latestWindSpeed = values[values.length - 1].value; // Wind speed in meters per second
             var windSpeedMph = latestWindSpeed / 1.609344
        var windgustlist = data.properties.windGust.values;
+
        var latestwindGust = windgustlist[windgustlist.length - 1].value;
+       var windgustmph = latestwindGust / 1.609344
             document.getElementById('windSpeed').innerText = "Wind Speeds are up to " + windSpeedMph.toFixed(0) + " mph"; 
-            document.getElementById('windGust').innerText = "Wind Gusts are up to " + latestwindGust + "mph";
+            document.getElementById('windGust').innerText = "Wind Gusts are up to " + windgustmph.toFixed(0) + " mph";
 
            
         })
