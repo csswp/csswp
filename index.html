@@ -172,7 +172,7 @@ function degreesToCardinal(degrees) {
 
        var winddirection = data.properties.windDirection.values
        var latestWindDirection = winddirection[winddirection.length - 1].value;
-            document.getElementById('windSpeed').innerText = "Wind Speeds " + degreesToCardinal(latestWindDirection) + " at" + windSpeedMph + " mph"  ; 
+            document.getElementById('windSpeed').innerText = "Wind Speeds " + degreesToCardinal(latestWindDirection) + " at " + windSpeedMph.toFixed(0) + " mph"  ; 
             document.getElementById('windGust').innerText = "Wind Gusts are up to " + windgustmph.toFixed(0) + " mph";
 
            
