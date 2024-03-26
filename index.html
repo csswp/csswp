@@ -113,7 +113,7 @@ height: 150px;
 
 
 <div id="tab7" class="tab-content">
-    <h1 class="largetext">Current Wind Speed</h1> <br>
+    <h1 class="largetext">Current Wind Data</h1> <br>
     <p class="mediumlargetext" id="windSpeed"></p>
     <br>
     <p class="mediumlargetext" id="windGust"></p>
@@ -122,6 +122,31 @@ height: 150px;
 </div>
 
 <script>
+
+
+function degreesToCardinal(degrees) {
+    // Convert degrees to a value between 0 and 360
+    let angle = (degrees + 360) % 360;
+
+    // Define cardinal directions and their ranges
+    const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'N'];
+    const ranges = [22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5, 360];
+
+    // Find the corresponding cardinal direction
+    for (let i = 0; i < ranges.length; i++) {
+        if (angle < ranges[i]) {
+            return directions[i];
+        }
+    }
+
+    return 'N'; 
+}
+
+
+
+
+
+
     // Function to fetch wind speed data from the API
     function getWindSpeed() {
         // API endpoint for Carol Stream, IL
@@ -144,7 +169,10 @@ height: 150px;
 
        var latestwindGust = windgustlist[windgustlist.length -1].value;
        var windgustmph = latestwindGust
-            document.getElementById('windSpeed').innerText = "Wind Speeds are up to " + windSpeedMph.toFixed(0) + " mph"; 
+
+       var winddirection = data.properties.windDirection.values
+       var latestWindDirection = winddirection[winddirection.length - 1].value;
+            document.getElementById('windSpeed').innerText = "Wind Speeds are up to " + windSpeedMph.toFixed(0) + " mph at " + degreesToCardinal(latestWindDirection)  ; 
             document.getElementById('windGust').innerText = "Wind Gusts are up to " + windgustmph.toFixed(0) + " mph";
 
            
