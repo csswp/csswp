@@ -168,7 +168,7 @@ function degreesToCardinal(degrees) {
        var windgustlist = data.properties.windGust.values;
 
        var latestwindGust = windgustlist[windgustlist.length -1].value;
-       var windgustmph = latestwindGust
+       var windgustmph = latestwindGust / 1.609344
 
        var winddirection = data.properties.windDirection.values
        var latestWindDirection = winddirection[winddirection.length - 1].value;
