@@ -64,26 +64,55 @@ height: 150px;
 
 
         
-<button class="navigators" onclick="showTab(1);swapTitle('CSSWP Home')">Home</button> 
+<style>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
 
-       
-        
-<button class="navigators" onclick="showTab(2);swapTitle('CSSWP Tools')">Tools</button> 
+.dropdown-content button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
 
-        <button class="navigators" onclick="showTab(7);swapTitle('Wind Speed');getWindSpeed()">Wind</button>
-        
-        <button class="navigators" onclick="showTab(3);swapTitle('YT Links')">Youtube</button>
+.dropdown-content button:hover {
+  background-color: #ddd;
+}
 
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
-         
-        <button class="navigators" onclick="showTab(4);swapTitle('Daily Video')">MV</button>
-        
-        <button class="navigators" onclick="showTab(5);swapTitle('Active Alerts')">Alerts</button>
-        
-        <button class="navigators" onclick="showTab(6);swapTitle('Active Alerts')">Day 1</button>
-            
-            <button class="navigators" onclick="showTab(8);swapTitle('Severe Weather Outlook')">Severe</button>
+</style>
+</head>
+<body>
+
+<div class="dropdown">
+  <button class="dropbtn">Forecasts</button>
+  <div class="dropdown-content">
+    <button onclick="showTab(2)">Tools</button> <br>
+    <button onclick="showTab(8)">Severe</button> <br>
+
+    <button onclick="showTab(6)">Day 1</button> <br>
+<button onclick="showTab(7)">Wind Data</button> <br>
+<button onclick="showTab(5)">Alerts</button> 
+  </div>
+</div>
+
 
 
 
@@ -374,5 +403,3 @@ function displayWeatherAlerts(alertsData) {
     </body>
     
 </html>
-
-
